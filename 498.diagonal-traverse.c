@@ -18,6 +18,7 @@
 
 int* findDiagonalOrder(int** matrix, int matrixSize, int* matrixColSize, int* returnSize){
     if (!matrixSize || !matrix || !matrixColSize) {
+        (*returnSize) = 0;
         return NULL;
     }
 
@@ -31,6 +32,7 @@ int* findDiagonalOrder(int** matrix, int matrixSize, int* matrixColSize, int* re
     }
     int* returnArray = (int *)malloc(total_size * sizeof(int));
     if (!returnArray) {
+        (*returnSize) = 0;
         return NULL;
     }
     returnArray[0] = matrix[0][0];
@@ -40,15 +42,15 @@ int* findDiagonalOrder(int** matrix, int matrixSize, int* matrixColSize, int* re
     while (index < total_size) {
         returnArray[index] = matrix[j][i];
         printf("returnArray[%d]:%d\n", index, returnArray[index]);
-        printf("before i:%d j:%d turn_flag:%d left_minus:%d \r\n", i, j, turn_flag, left_minus);
-        if (i == 0 || i == (row - 1) || j == 0 || j == (col-1)) {
+        printf("before col:%d row:%d turn_flag:%d left_minus:%d \r\n", i, j, turn_flag, left_minus);
+        if (i == 0 || i == (col - 1) || j == 0 || j == (row-1)) {
             if (turn_flag) {
-                if ((i == 0 || j == 0) && (i != (row - 1) && j != (col - 1))) {
-                    printf("1");
-                    (i > j) ? (i++) : (j++);
-                } else /*if ((i == (row -1) || j == (col - 1)) && (i == 0 || j == 0))*/ {
-                    printf("2");
-                    (i > j) ? (j++) : (i++);
+                printf("%d %d\r\n", (i == 0 || j == 0) && (i != (col - 1)) ? true: false, 
+                                    (i == 0 || j == 0) && (j != (row - 1)) ? true: false);
+                if (((i == 0 || j == 0) && (i != (col - 1))) && ((i == 0 || j == 0) && (j != (row - 1)))) {
+                    (i >= j) ? (i++) : (j++);
+                } else {
+                    (i >= j) ? (j++) : (i++);
                 }
                 turn_flag = false;
             } else {
@@ -72,6 +74,7 @@ int* findDiagonalOrder(int** matrix, int matrixSize, int* matrixColSize, int* re
     (*returnSize) = total_size;
     (*matrixColSize) = 1;
     return returnArray;
+    printf("in");
 }
 // @lc code=end
 
