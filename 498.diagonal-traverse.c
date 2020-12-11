@@ -12,7 +12,7 @@
  */
 /**
  * @note
- * 1. index = row - 1或col-1或==0时转弯
+ * 1. index = row - 1或 col - 1或==0时转弯
  * 2. 基于1, 位数较大的index + 1
  */
 
@@ -33,37 +33,49 @@ int* findDiagonalOrder(int** matrix, int matrixSize, int* matrixColSize, int* re
         (*returnSize) = 0;
         return NULL;
     }
-    int i = 0, j = 0, index = 0, x = 0, y = 0;
-    bool col_minus = false, plus = false;
+    int i = 0, j = 0, index = 0, extra_i = 0, extra_j = 0, x = 0, y = 0;
+    bool col_minus = false;
 
-    for (;i < max && j < max;) {
-        if (i < col && j < row) {
-            returnArray[index] = matrix[j][i];
-            index++;
-            if (index > (*returnSize)) {
-                break;
-            }
-        }
-        if (i % 2 == 0 && j == 0 ) {
+    while (index < (*returnSize)) {
+        printf("matrix[%d+%d][%d+%d]", j, extra_i, i, extra_j);
+        j += extra_i;
+        i += extra_j;
+        returnArray[index++] = matrix[j][i];
+        printf(" = array[%d]: %d\r\n", index-1, returnArray[index-1]);
+        if ((i % 2 == 0 && j == 0 && !extra_i) || (i == (col - 1) && extra_j) ) {
+            extra_i = 0;
+            extra_j = 0;
             col_minus = true;
-            i++;
+            (i+1) >= col ? extra_i = 1 : i++;
             continue;
         }
-        else if (j % 2 != 0 && i == 0) {
+        else if ((j % 2 != 0 && i == 0 && !extra_j) || (j == (row - 1) && extra_i)) {
+            extra_i = 0;
+            extra_j = 0;
             col_minus = false;
-            j++;
+            (j+1) >= row ? extra_j = 1 : j++;
             continue;
-        }else {
         }
+        extra_i = 0;
+        extra_j = 0;
+
+        printf("------------col_minus:%d\r\n", col_minus);
         if (col_minus) {
-            (i-1) < 0 ?  : (i--);
-            j++;
+            if ((j+1) >= row) {
+                extra_j = 1;
+            } else {
+                (i-1) < 0 ?  : (i--);
+                j++;
+            }
         } else {
-            i++;
-            (j-1) < 0 ? : (j--);
+            if ((i+1) >= col) {
+                extra_i = 1;
+            } else {
+                i++;
+                (j-1) < 0 ? : (j--);
+            }
         }
     }
     return returnArray;
 }
 // @lc code=end
-
