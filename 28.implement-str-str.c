@@ -69,7 +69,6 @@ void get_pmt_val(char sub_str[], int pmt[])
             len++;
         }
         pmt[index] = len;
-        printf("pmt[%d] %d\r\n", index, pmt[index]);
     }
 }
 
