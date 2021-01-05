@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "leetcode",
+            "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
@@ -10,7 +10,7 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:/scoop/apps/gcc/current/bin/gcc.exe",
+            "compilerPath": "/usr/sbin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++14",
             "forcedInclude": [

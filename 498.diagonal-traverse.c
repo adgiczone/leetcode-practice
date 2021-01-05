@@ -59,7 +59,6 @@ int* findDiagonalOrder(int** matrix, int matrixSize, int* matrixColSize, int* re
         extra_i = 0;
         extra_j = 0;
 
-        printf("------------col_minus:%d\r\n", col_minus);
         if (col_minus) {
             if ((j+1) >= row) {
                 extra_j = 1;

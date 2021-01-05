@@ -5,8 +5,6 @@
  */
 
 // @lc code=start
-#include <stdio.h>
-#include <string.h>
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
@@ -22,7 +20,7 @@ int* plusOne(int* digits, int digitsSize, int* returnSize)
     int plus = 1, realSize = digitsSize;
     for (int i = digitsSize; i > 0; i--) {
         recvArray[i] = (digits[i - 1] + plus) % 10;
-        plus = (digits[i - 1] + plus) / 10; 
+        plus = (digits[i - 1] + plus) / 10;
     }
 
     if (!recvArray[1] && plus) {
