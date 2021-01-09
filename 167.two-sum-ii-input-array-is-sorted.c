@@ -10,8 +10,9 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
-
+//二分法主要在于缩小左右边界
 int real_size = 0;
+#ifdef method_1
 int binary_search(int *array, int arraySizes, int target)
 {
     int size = arraySizes / 2;
@@ -44,5 +45,32 @@ int* twoSum(int* numbers, int numbersSize, int target, int* returnSize)
     }
     return returnArray;
 }
-// @lc code=end
+#endif
 
+int *twoSum(int *numbers, int numbersSize, int target, int *returnSize)
+{
+    if (!numbers || !numbersSize) {
+        return 0;
+    }
+    int *return_array = (int *)malloc(2*sizeof(int));
+    if (!return_array) {
+        return 0;
+    }
+    *returnSize = 2;
+    int left = 0, right = numbersSize - 1;
+    while (left < right) {
+        if ((numbers[left] + numbers[right])== target) {
+            return_array[0] = left + 1;
+            return_array[1] = right + 1;
+            break;
+        }
+        else if ((numbers[left] + numbers[right]) < target) {
+            left++;
+        }
+        else {
+            right--;
+        }
+    }
+    return return_array;
+}
+    // @lc code=end
