@@ -6,7 +6,7 @@
 
 // @lc code=start
 
-
+// sliding_window  O(n)
 int minSubArrayLen(int s, int* nums, int numsSize)
 {
     if (!nums || !numsSize) {
@@ -19,12 +19,7 @@ int minSubArrayLen(int s, int* nums, int numsSize)
             number = (number <= (tail - head)) ? number : (tail - head);
             sum -= nums[head++];
         } else {
-            if (tail >= numsSize - 1) {
-                sum -= nums[head++];
-            }
-            else {
-                sum += nums[++tail];
-            }
+            sum = (tail >= numsSize - 1) ? sum - nums[head++] : sum + nums[++tail];
         }
     }
     return (number == __INT_MAX__) ? 0 : number + 1;
