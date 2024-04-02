@@ -39,4 +39,3 @@ char *longestCommonPrefix(char **strs, int strsSize)
     return common_prefix;
 }
 // @lc code=end
-
