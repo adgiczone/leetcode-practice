@@ -18,15 +18,18 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	h3 := &ListNode{-1, nil}
 	p3 := h3
 	carry := 0
-
+	// 两个指针。
 	for p1 != nil && p2 != nil {
+		// 链表1 + 链表2 + carry（进位）
 		sum := p1.Val + p2.Val + carry
 		if sum >= 10 {
+			// sum > 10 就设置进位
 			sum, carry = sum-10, 1
 		} else {
 			carry = 0
 		}
 		p3.Next = &ListNode{sum, nil}
+		// 往下走
 		p1 = p1.Next
 		p2 = p2.Next
 		p3 = p3.Next

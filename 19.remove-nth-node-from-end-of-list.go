@@ -27,6 +27,7 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 		i++
 	}
 	// 快指针到底的时候，慢指针下一个节点是n
+	// 跳过n节点
 	slow.Next = slow.Next.Next
 	return h1.Next
 }
