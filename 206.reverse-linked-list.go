@@ -12,6 +12,7 @@
  *     Next *ListNode
  * }
  */
+// 翻转链表
 func reverseList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
