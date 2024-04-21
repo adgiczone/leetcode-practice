@@ -14,27 +14,26 @@
  */
 func partition(head *ListNode, x int) *ListNode {
 	// 存放小于x的链表
-	dummy1 := &ListNode{-1, nil}
-	// 存放大于x的链表
-	dummy2 := &ListNode{-1, nil}
-	d1, d2, h1 := dummy1, dummy2, head
+	small := &ListNode{-1, nil}
+	// 存放大于x的链表，不能和small共用一个，会被覆盖
+	large := &ListNode{-1, nil}
+	s, l := small, large
 
-	for h1 != nil {
-		if h1.Val < x {
-			d1.Next = h1
-			d1 = d1.Next
+	for h := head; h != nil; h = h.Next {
+		if h.Val < x {
+			s.Next = h
+			s = s.Next
 		} else {
-			d2.Next = h1
-			d2 = d2.Next
+			l.Next = h
+			l = l.Next
 		}
-		// 为了防止合并的时候d1的next同时指向h1和dummy2的头从而变成一个环，断开旧链表。
-		temp := h1.Next
-		h1.Next = nil
-		h1 = temp
 	}
+	// 为了防止合并的时候large的末尾同时指向旧链表的其他节点
+	// large末尾置空
+	l.Next = nil
 	// 连接两个链表
-	d1.Next = dummy2.Next
-	return dummy1.Next
+	s.Next = large.Next
+	return small.Next
 }
 
 // @lc code=end
