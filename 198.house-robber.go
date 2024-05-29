@@ -5,29 +5,20 @@
  */
 
 // @lc code=start
+// 动态规划
 func rob(nums []int) int {
-	res := nums[0]
-	max := func(x int, y int) int {
-		if x > y {
-			return x
+	if len(nums) == 0 {
+		return 0
+	}
+
+	res := 0
+	var dp func(start int) int
+	dp = func(start int) int {
+		if start >= len(nums) {
+			return 0
 		}
-		return y
+		res = dp
 	}
-	if len(nums) == 2 {
-		return max(nums[0], nums[1])
-	}
-
-	for i := range nums {
-		if i-2 < 0 {
-			res = nums[i]
-			continue
-		}
-		nums[i] = nums[i] + nums[i-2]
-		fmt.Println("_+_+", res, nums[i])
-		res = max(nums[i], res)
-
-	}
-
 	return res
 }
 
