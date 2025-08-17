@@ -18,12 +18,15 @@ func traverse(root *TreeNode, depth, res *int) {
 	if root == nil {
 		return
 	}
+	// 遍历前++
 	(*depth)++
 	traverse(root.Left, depth, res)
+	// 记录一下深度
 	if (*depth) > (*res) {
 		(*res) = (*depth)
 	}
 	traverse(root.Right, depth, res)
+	// 离开的时候深度--
 	(*depth)--
 	return
 }

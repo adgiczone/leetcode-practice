@@ -10,6 +10,7 @@ func removeDuplicates(nums []int) int {
 	duplicate := 0
 	slow := 0
 	for fast := 1; fast < len(nums); fast++ {
+		// 如果相同,duplicate+1
 		if nums[fast] == nums[slow] {
 			duplicate++
 			if duplicate <= 1 {

@@ -21,8 +21,10 @@ func isValid(s string) bool {
 	left_stack := make([]byte, 0)
 	for i := 0; i < len(s); i++ {
 		if s[i] == '(' || s[i] == '{' || s[i] == '[' {
+			//堆栈
 			left_stack = append(left_stack, s[i])
 		} else {
+			// 找到前一个栈的元素一定要符合顺序.
 			if len(left_stack) != 0 && leftfunc(s[i]) == left_stack[len(left_stack)-1] {
 				left_stack = left_stack[:len(left_stack)-1]
 			} else {

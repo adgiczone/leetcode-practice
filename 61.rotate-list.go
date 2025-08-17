@@ -47,15 +47,17 @@ func rotateRight(head *ListNode, k int) *ListNode {
 	if head == nil {
 		return head
 	}
-
+	// 计算长度
 	length := 0
 	for p := head; p != nil; p = p.Next {
 		length++
 	}
+	// 如果k比length长, 就取余
 	if k >= length {
 		k = k % length
 	}
 	if k == 0 {
+		// 取余之后发现是不需要旋转
 		return head
 	}
 
@@ -64,14 +66,17 @@ func rotateRight(head *ListNode, k int) *ListNode {
 	start := 1
 
 	for fast.Next != nil || start < k {
+		// 走到需要旋转的节点的下一个,slow开始走
 		if start > k {
 			slow = slow.Next
 		}
 		start++
 		fast = fast.Next
 	}
+	// slow的下一个作为头
 	newHead := slow.Next
 	slow.Next = nil
+	// 拼接原本的链表头
 	fast.Next = head
 
 	return newHead
