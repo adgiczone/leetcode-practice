@@ -36,61 +36,41 @@ func isValid(s string) bool {
 }
 
 // 括号必须按{}，[], ()的顺序
-func isValidPriority(s string) bool {
-	leftfunc := func(c byte) byte {
-		if c == ')' {
-			return '('
-		}
-		if c == ']' {
-			return '['
-		}
-		if c == '}' {
-			return '{'
-		}
-		return 0
+func isValid(s string) bool {
+	stack := []rune{}
+	// Map for bracket pairs
+	pairs := map[rune]rune{
+		')': '(',
+		']': '[',
+		'}': '{',
 	}
-	left_stack := make([]byte, 0)
-	// 加一个优先级
-	getPriority := func(c byte) int {
-		if c == ')' || c == '(' {
-			return 0
-		}
-		if c == ']' || c == '[' {
-			return 1
-		}
-		if c == '}' || c == '{' {
-			return 2
-		}
-		return 0
+
+	// Order for priority validation
+	priority := map[rune]int{
+		'{': 1,
+		'[': 2,
+		'(': 3,
 	}
-	curPriority := getPriority('{')
-	for i := 0; i < len(s); i++ {
-		if s[i] == '(' || s[i] == '{' || s[i] == '[' {
-			left_stack = append(left_stack, s[i])
-		} else {
-			if len(left_stack) != 0 && leftfunc(s[i]) == left_stack[len(left_stack)-1] {
-				left_stack = left_stack[:len(left_stack)-1]
-			} else {
+
+	for _, ch := range s {
+		switch ch {
+		case '(', '[', '{':
+			// Check nested priority: disallow if nesting breaks rule
+			if len(stack) > 0 && priority[ch] <= priority[stack[len(stack)-1]] {
 				return false
 			}
-		}
-		fmt.Printf("cur priority %d input %d", curPriority, getPriority(s[i]))
-		// 检查优先级， 如果当前优先级比较大就不管
-		if getPriority(s[i]) < curPriority || getPriority(leftfunc(s[i])) >= curPriority {
-			// 最后一个pass
-			if (i + 1) >= len(s) {
-				continue
-			}
-			// 右括号的优先级等于当前的优先级，获取下一个元素的优先级
-			if getPriority(leftfunc(s[i])) == curPriority {
-				curPriority = getPriority(s[i+1])
-			} else {
-				// 当前优先级小于之前的优先级，退出
+			stack = append(stack, ch)
+		case ')', ']', '}':
+			if len(stack) == 0 || stack[len(stack)-1] != pairs[ch] {
 				return false
 			}
+			stack = stack[:len(stack)-1]
+		default:
+			return false // invalid character
 		}
 	}
-	return len(left_stack) == 0
+
+	return len(stack) == 0
 }
 
 // @lc code=end
