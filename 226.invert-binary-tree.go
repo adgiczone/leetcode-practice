@@ -26,9 +26,11 @@ func traverse(root *TreeNode) {
 	root.Left = root.Right
 	root.Right = tmp
 }
+
 func invertTree(root *TreeNode) *TreeNode {
-    traverse(root)
+	traverse(root)
 	return root
 }
+
 // @lc code=end
 
